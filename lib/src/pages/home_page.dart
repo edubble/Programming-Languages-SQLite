@@ -243,23 +243,18 @@ class _HomePageState extends State<HomePage> {
                         if (_language.text.isNotEmpty &&
                             _yearReleased.text.isNotEmpty &&
                             _designer.text.isNotEmpty) {
-                          List list =
-                              await DBProvider.db.getLanguage(_language.text);
-                          if (list.isEmpty) {
-                            final language = Language();
-                            language.id = snapshot.data[index].id;
-                            language.language = _language.text;
-                            language.yearReleased = _yearReleased.text;
-                            language.createdBy = _designer.text;
-                            language.image = _imageLink.text;
-                            await DBProvider.db.updateLanguage(language);
-                            setState(() {});
-                            Navigator.of(context).pop();
-                            _showDoneSnackBar('${language.language.toString()} updated', 0xff008000);
-                          } else {
-                            showAlertDialog(
-                                context, "${_language.text} already exists.");
-                          }
+                          final language = Language();
+                          language.id = snapshot.data[index].id;
+                          language.language = _language.text;
+                          language.yearReleased = _yearReleased.text;
+                          language.createdBy = _designer.text;
+                          language.image = _imageLink.text;
+                          await DBProvider.db.updateLanguage(language);
+                          setState(() {});
+                          Navigator.of(context).pop();
+                          _showDoneSnackBar(
+                              '${language.language.toString()} updated',
+                              0xff008000);
                         } else {
                           showAlertDialog(
                               context,
@@ -379,7 +374,9 @@ class _HomePageState extends State<HomePage> {
                             await DBProvider.db.createLanguage(language);
                             setState(() {});
                             Navigator.of(context).pop();
-                            _showDoneSnackBar('${language.language.toString()} created', 0xff008000);
+                            _showDoneSnackBar(
+                                '${language.language.toString()} created',
+                                0xff008000);
                           } else {
                             showAlertDialog(
                                 context, "${_language.text} already exists.");
